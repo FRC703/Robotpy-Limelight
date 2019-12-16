@@ -3,6 +3,7 @@ __all__ = ["Limelight", "LEDState", "CamMode", "StreamMode", "SnapshotMode"]
 from networktables import NetworkTables
 from enum import Enum
 import typing
+from typing import Tuple
 
 class LEDState(Enum):
     MATCH_PIPELINE = 0
@@ -77,29 +78,73 @@ class Limelight:
     #     self.__nt.getNumber('ts2')
 
     @property
+    def valid_targets(self) -> bool:
+        return self.__nt.getNumber("tv")
+
+    @property
+    def horizontal_offset(self) -> float:
+        return self.__nt.getNumber("tx")
+
+    @property
+    def vertical_offset(self) -> float:
+        return self.__nt.getNumber("ty")
+
+    @property
+    def target_area(self) -> float:
+        return self.__nt.getNumber("ta")
+    
+    @property
+    def skew(self) -> float:
+        return self.__nt.getNumber("ts")
+    
+    @property
+    def latency(self) -> float:
+        return self.__nt.getNumber("tl")
+    
+    @property
+    def bb_short(self) -> float:
+        return self.__nt.getNumber("tshort")
+    
+    @property
+    def bb_long(self) -> float:
+        return self.__nt.getNumber("tlong")
+    
+    @property
+    def bb_horizontal(self) -> float:
+        return self.__nt.getNumber("thor")
+    
+    @property
+    def bb_vertical(self) -> float:
+        return self.__nt.getNumber("tvert")
+    
+    @property
+    def bb(self) -> Tuple[float, float]:
+        return (self.bb_horizontal, self.bb_vertical)
+
+    @property
     def crosshair_ax(self):
         """
         Get crosshair A's X position
         """
-        self.__nt.getNumber('cx0')
+        return self.__nt.getNumber('cx0')
     @property
     def crosshair_ay(self):
         """
         Get crosshair A's Y position
         """
-        self.__nt.getNumber('cy0')
+        return self.__nt.getNumber('cy0')
     @property
     def crosshair_bx(self):
         """
         Get crosshair B's X position
         """
-        self.__nt.getNumber('cx1')
+        return self.__nt.getNumber('cx1')
     @property
     def crosshair_by(self):
         """
         Get crosshair B's Y position
         """
-        self.__nt.getNumber('cy1')
+        return self.__nt.getNumber('cy1')
 
     def camera(self, camMode: CamMode) -> None:
         """
