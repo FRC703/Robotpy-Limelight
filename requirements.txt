@@ -1,0 +1,3 @@
+pynetworktables
+sphinx
+sphinx-rtd-theme

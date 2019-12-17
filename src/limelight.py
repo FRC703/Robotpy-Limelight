@@ -79,47 +79,119 @@ class Limelight:
 
     @property
     def valid_targets(self) -> bool:
+        """
+        Whether the camera has found a valid target
+
+        Returns:
+            Any valid targets?
+        """
         return self.__nt.getNumber("tv")
 
     @property
     def horizontal_offset(self) -> float:
+        """
+        Gives the horizontal offset from the crosshair to the target
+        LL1: -27° - 27°
+        LL2: -29.8° - 29.8°
+
+        Returns:
+            The horizontal offest from the crosshair to the target.
+            
+        """
         return self.__nt.getNumber("tx")
 
     @property
     def vertical_offset(self) -> float:
+        """
+        Gives the vertical offset from the crosshair to the target
+        LL1: -20.5° - 20.5°
+        LL2: -24.85° - 24.85°
+
+        Returns:
+            The vertical offset from the crosshair to the target
+        """
         return self.__nt.getNumber("ty")
 
     @property
     def target_area(self) -> float:
+        """
+        How much of the image is being filled by the target
+
+        Returns:
+            0% - 100% of image
+        """
         return self.__nt.getNumber("ta")
     
     @property
     def skew(self) -> float:
+        """
+        How much the target is skewed
+
+        Returns:
+            -90° - 0°
+        """
         return self.__nt.getNumber("ts")
     
     @property
     def latency(self) -> float:
+        """
+        How much the pipeline contributes to the latency. Adds at least 11ms for image capture
+
+        Returns:
+            Latency contribution
+        """
         return self.__nt.getNumber("tl")
     
     @property
     def bb_short(self) -> float:
+        """
+        Sidelength of the shortest side of the fitted bouding box (pixels)
+
+        Returns:
+            Shortest sidelength
+        """
         return self.__nt.getNumber("tshort")
     
     @property
     def bb_long(self) -> float:
+        """
+        Sidelength of the longest side of the fitted bouding box (pixels)
+
+        Returns:
+            Longest sidelength
+        """
         return self.__nt.getNumber("tlong")
     
     @property
     def bb_horizontal(self) -> float:
+        """
+        Horizontal sidelength of the rough bounding box (0 - 320 px)
+
+        Returns:
+            The horizontal sidelength
+        """
         return self.__nt.getNumber("thor")
     
     @property
     def bb_vertical(self) -> float:
+        """
+        Vertical sidelength of the rough bounding box (0 - 320 px)
+
+        Returns:
+            The vertical sidelength
+        """
         return self.__nt.getNumber("tvert")
     
     @property
-    def bb(self) -> Tuple[float, float]:
+    def bounding_box(self) -> Tuple[float, float]:
         return (self.bb_horizontal, self.bb_vertical)
+    
+    def camtran(self) -> Tuple[Tuple[float, float, float], Tuple[float, float, float]]:
+        """
+        Results of a 3D solution position, 6 numbers: Translation(x,y,z) Rotation(pitch, yaw, roll)
+        Honestly I have no clue what this does yet without some testing.
+        """
+        return self.__nt.getNumber("camtran")
 
     @property
     def crosshair_ax(self):
@@ -150,7 +222,8 @@ class Limelight:
         """
         Set the camera mode. You can set this to be driver operated or to run on a pipeline.
 
-        :param camMode: The camera mode to set
+        Args:
+            camMode: The camera mode to set
         """
         self._enabled = camMode
         self.__nt.putNumber("camMode", camMode)
@@ -159,7 +232,8 @@ class Limelight:
         """
         Set the status of the limelight lights
 
-        :param status: The status to set the light to
+        Args:
+            status: The status to set the light to
         """
         self._light = status
         self.__nt.putNumber("ledMode", status)
@@ -168,7 +242,8 @@ class Limelight:
         """
         Sets the currently active pipeline
 
-        :param pipeline: The pipeline id to set to be active
+        Args:
+            pipeline: The pipeline id to set to be active
         """
         self._active_pipeline = 0
         self.__nt.putNumber("pipeline", pipeline)
@@ -177,7 +252,8 @@ class Limelight:
         """
         Allow users to take snapshots during a match
 
-        :param snapshotMode: The state to put the camera in
+        Args:
+            snapshotMode: The state to put the camera in
         """
         self._snapshots = snapshotMode
         self.__nt.putNumber("snapshot", snapshotMode)
