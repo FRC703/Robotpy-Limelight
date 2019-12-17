@@ -33,49 +33,9 @@ class Limelight:
     _active_pipeline = 0
 
     def __init__(self, camera=False, light=False):
-        NetworkTables.initialize()
         __nt = NetworkTables.getTable("limelight")
         self._enabled = camera
         self._light = light
-
-
-
-    # @property
-    # def raw_screenspace_x(self):
-    #     self.__nt.getNumber('tx0')
-    # @property
-    # def raw_screenspace_y(self):
-    #     self.__nt.getNumber('ty0')
-    # @property
-    # def area(self):
-    #     self.__nt.getNumber('ta0')
-    # @property
-    # def skew_rot(self):
-    #     self.__nt.getNumber('ts0')
-    # @property
-    # def tx1(self):
-    #     self.__nt.getNumber('tx1')
-    # @property
-    # def ty1(self):
-    #     self.__nt.getNumber('ty1')
-    # @property
-    # def ta1(self):
-    #     self.__nt.getNumber('ta1')
-    # @property
-    # def ts1(self):
-    #     self.__nt.getNumber('ts1')
-    # @property
-    # def tx2(self):
-    #     self.__nt.getNumber('tx2')
-    # @property
-    # def ty2(self):
-    #     self.__nt.getNumber('ty2')
-    # @property
-    # def ta2(self):
-    #     self.__nt.getNumber('ta2')
-    # @property
-    # def ts2(self):
-    #     self.__nt.getNumber('ts2')
 
     @property
     def valid_targets(self) -> bool:
