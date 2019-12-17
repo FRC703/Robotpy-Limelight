@@ -1,7 +1,10 @@
-from limelight import Limelight
+from .limelight import Limelight
 import math
 
-def calc_distance(camera_angle: float, mount_height: float, target_height: float, limelight: Limelight):
+
+def calc_distance(
+    camera_angle: float, mount_height: float, target_height: float, limelight: Limelight
+):
     """
     Calculate the distance from the camera to the wall the target is mounted on
 
@@ -14,10 +17,15 @@ def calc_distance(camera_angle: float, mount_height: float, target_height: float
     Returns:
         Gives the distance (in the same units that were used for the input) away from the wall that has the target
     """
-    d = (known_height - target_height) / math.tan(math.radians(camera_angle + limelight.vertical_offset))
+    d = (target_height - mount_height) / math.tan(
+        math.radians(camera_angle + limelight.vertical_offset)
+    )
     return d
 
-def calc_camera_angle(x_distance: float, mount_height: float, target_height: float, limelight):
+
+def calc_camera_angle(
+    x_distance: float, mount_height: float, target_height: float, limelight
+):
     """
     Calculate the camera's mounted angle from known properties. Set the robot to a fixed
     distance away from the target and pass in the other properties and it will calculate
@@ -32,4 +40,7 @@ def calc_camera_angle(x_distance: float, mount_height: float, target_height: flo
     Returns:
         Gives the angle (in degrees) that the camera is mounted at
     """
-    a1 = math.degrees(-limelight.vertical_offset + math.atan(math.radians((target_height - mount_height)) / x_distance))
+    a1 = -limelight.vertical_offset + math.degrees(
+        math.atan((target_height - mount_height) / x_distance)
+    )
+    return a1

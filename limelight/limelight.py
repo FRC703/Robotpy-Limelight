@@ -5,24 +5,29 @@ from enum import Enum
 import typing
 from typing import Tuple
 
+
 class LEDState(Enum):
     MATCH_PIPELINE = 0
     OFF = 1
     BLINK = 2
     ON = 3
 
+
 class CamMode(Enum):
     PROCESSED = 0
     DRIVER = 1
+
 
 class StreamMode(Enum):
     STANDARD = 0
     PIP_MAIN = 1
     PIP_SECONDARY = 2
 
+
 class SnapshotMode(Enum):
     NONE = 0
     TAKE_2_PS = 1
+
 
 class Limelight:
     _enabled = 1
@@ -32,8 +37,11 @@ class Limelight:
     __nt = None
     _active_pipeline = 0
 
-    def __init__(self, camera=False, light=False):
-        __nt = NetworkTables.getTable("limelight")
+    def __init__(self, nt=None, camera=False, light=False):
+        if nt:
+            __nt = nt
+        else:
+            __nt = NetworkTables.getTable("limelight")
         self._enabled = camera
         self._light = light
 
@@ -81,7 +89,7 @@ class Limelight:
             0% - 100% of image
         """
         return self.__nt.getNumber("ta")
-    
+
     @property
     def skew(self) -> float:
         """
@@ -91,7 +99,7 @@ class Limelight:
             -90° - 0°
         """
         return self.__nt.getNumber("ts")
-    
+
     @property
     def latency(self) -> float:
         """
@@ -101,7 +109,7 @@ class Limelight:
             Latency contribution
         """
         return self.__nt.getNumber("tl")
-    
+
     @property
     def bb_short(self) -> float:
         """
@@ -111,7 +119,7 @@ class Limelight:
             Shortest sidelength
         """
         return self.__nt.getNumber("tshort")
-    
+
     @property
     def bb_long(self) -> float:
         """
@@ -121,7 +129,7 @@ class Limelight:
             Longest sidelength
         """
         return self.__nt.getNumber("tlong")
-    
+
     @property
     def bb_horizontal(self) -> float:
         """
@@ -131,7 +139,7 @@ class Limelight:
             The horizontal sidelength
         """
         return self.__nt.getNumber("thor")
-    
+
     @property
     def bb_vertical(self) -> float:
         """
@@ -141,11 +149,11 @@ class Limelight:
             The vertical sidelength
         """
         return self.__nt.getNumber("tvert")
-    
+
     @property
     def bounding_box(self) -> Tuple[float, float]:
         return (self.bb_horizontal, self.bb_vertical)
-    
+
     def camtran(self) -> Tuple[Tuple[float, float, float], Tuple[float, float, float]]:
         """
         Results of a 3D solution position, 6 numbers: Translation(x,y,z) Rotation(pitch, yaw, roll)
@@ -158,25 +166,28 @@ class Limelight:
         """
         Get crosshair A's X position
         """
-        return self.__nt.getNumber('cx0')
+        return self.__nt.getNumber("cx0")
+
     @property
     def crosshair_ay(self):
         """
         Get crosshair A's Y position
         """
-        return self.__nt.getNumber('cy0')
+        return self.__nt.getNumber("cy0")
+
     @property
     def crosshair_bx(self):
         """
         Get crosshair B's X position
         """
-        return self.__nt.getNumber('cx1')
+        return self.__nt.getNumber("cx1")
+
     @property
     def crosshair_by(self):
         """
         Get crosshair B's Y position
         """
-        return self.__nt.getNumber('cy1')
+        return self.__nt.getNumber("cy1")
 
     def camera(self, camMode: CamMode) -> None:
         """
@@ -187,7 +198,7 @@ class Limelight:
         """
         self._enabled = camMode
         self.__nt.putNumber("camMode", camMode)
-        
+
     def light(self, status: LEDState) -> None:
         """
         Set the status of the limelight lights
@@ -197,7 +208,7 @@ class Limelight:
         """
         self._light = status
         self.__nt.putNumber("ledMode", status)
-    
+
     def pipeline(self, pipeline):
         """
         Sets the currently active pipeline
@@ -207,7 +218,7 @@ class Limelight:
         """
         self._active_pipeline = 0
         self.__nt.putNumber("pipeline", pipeline)
-    
+
     def snapshot(self, snapshotMode: SnapshotMode):
         """
         Allow users to take snapshots during a match
@@ -217,4 +228,3 @@ class Limelight:
         """
         self._snapshots = snapshotMode
         self.__nt.putNumber("snapshot", snapshotMode)
-

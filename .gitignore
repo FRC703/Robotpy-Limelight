@@ -1,2 +1,4 @@
 __pipcache__
+**/__pycache__
 docs/_build
+bin
