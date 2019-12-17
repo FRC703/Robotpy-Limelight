@@ -3,8 +3,8 @@ import os
 
 
 setup(
-    name="RobotPy Limelight",
-    version="2020.0.0",
+    name="RobotPy-Limelight",
+    version=os.environ["TRAVIS_TAG"],
     author="Josh Bacon",
     author_email="bacon.josh09@gmail.com",
     packages=["limelight"],
@@ -12,5 +12,5 @@ setup(
     license="LICENSE",
     description="RobotPy Limelight utilities",
     long_description=open("README.rst").read(),
-    install_requires=["pynetworktables >= " + os.environ["TRAVIS_TAG"]],
+    install_requires=["pynetworktables >= 2019"],
 )
