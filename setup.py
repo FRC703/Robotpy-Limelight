@@ -11,6 +11,5 @@ setup(
     url="https://pypi.org/project/robotpy-limelight",
     license="LICENSE",
     description="RobotPy Limelight utilities",
-    long_description=open("README.rst").read(),
     install_requires=["pynetworktables >= 2019"],
 )
