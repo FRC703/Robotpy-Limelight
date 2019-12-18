@@ -4,7 +4,7 @@ import os
 
 setup(
     name="RobotPy-Limelight",
-    version=os.environ["TRAVIS_TAG"],
+    version="2020.0.3",
     author="Josh Bacon",
     author_email="bacon.josh09@gmail.com",
     packages=["limelight"],
