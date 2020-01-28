@@ -39,9 +39,9 @@ class Limelight:
 
     def __init__(self, nt=None, camera=False, light=False):
         if nt:
-            __nt = nt
+            self.__nt = nt
         else:
-            __nt = NetworkTables.getTable("limelight")
+            self.__nt = NetworkTables.getTable("limelight")
         self._enabled = camera
         self._light = light
 
@@ -64,7 +64,7 @@ class Limelight:
 
         Returns:
             The horizontal offest from the crosshair to the target.
-            
+
         """
         return self.__nt.getNumber("tx")
 
