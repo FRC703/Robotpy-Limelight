@@ -233,7 +233,7 @@ class Limelight:
             camMode: The camera mode to set
         """
         self._enabled = camMode
-        self.__nt.putNumber("camMode", camMode.value)
+        self.__nt.putNumber("camMode", camMode.value if isinstance(camMode, CamMode) else camMode)
 
     def light(self, status: LEDState) -> None:
         """
@@ -243,7 +243,7 @@ class Limelight:
             status: The status to set the light to
         """
         self._light = status
-        self.__nt.putNumber("ledMode", status.value)
+        self.__nt.putNumber("ledMode", status.value if isinstance(status, LEDState) else status)
 
     def pipeline(self, pipeline: int):
         """
@@ -263,4 +263,4 @@ class Limelight:
             snapshotMode: The state to put the camera in
         """
         self._snapshots = snapshotMode
-        self.__nt.putNumber("snapshot", snapshotMode.value)
+        self.__nt.putNumber("snapshot", snapshotMode.value if isinstance(snapshotMode, SnapshotMode) else snapshotMode)
