@@ -13,6 +13,7 @@ class LEDState(Enum):
     |2|force blink|
     |3|force on|
     """
+
     MATCH_PIPELINE = 0
     OFF = 1
     BLINK = 2
@@ -26,6 +27,7 @@ class CamMode(Enum):
     |PROCESSED|Vision processor|
     |DRIVER|Driver camera (increases exposure, disables vision processing)|
     """
+
     PROCESSED = 0
     DRIVER = 1
 
@@ -38,6 +40,7 @@ class StreamMode(Enum):
     |1|PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream|
     |2|PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream|
     """
+
     STANDARD = 0
     PIP_MAIN = 1
     PIP_SECONDARY = 2
@@ -50,6 +53,7 @@ class SnapshotMode(Enum):
     |0|Stop taking snapshots|
     |1|Take two snapshots per second|
     """
+
     NONE = 0
     TAKE_2_PS = 1
 
@@ -233,7 +237,9 @@ class Limelight:
             camMode: The camera mode to set
         """
         self._enabled = camMode
-        self.__nt.putNumber("camMode", camMode.value if isinstance(camMode, CamMode) else camMode)
+        self.__nt.putNumber(
+            "camMode", camMode.value if isinstance(camMode, CamMode) else camMode
+        )
 
     def light(self, status: LEDState) -> None:
         """
@@ -243,7 +249,9 @@ class Limelight:
             status: The status to set the light to
         """
         self._light = status
-        self.__nt.putNumber("ledMode", status.value if isinstance(status, LEDState) else status)
+        self.__nt.putNumber(
+            "ledMode", status.value if isinstance(status, LEDState) else status
+        )
 
     def pipeline(self, pipeline: int):
         """
@@ -263,4 +271,9 @@ class Limelight:
             snapshotMode: The state to put the camera in
         """
         self._snapshots = snapshotMode
-        self.__nt.putNumber("snapshot", snapshotMode.value if isinstance(snapshotMode, SnapshotMode) else snapshotMode)
+        self.__nt.putNumber(
+            "snapshot",
+            snapshotMode.value
+            if isinstance(snapshotMode, SnapshotMode)
+            else snapshotMode,
+        )
