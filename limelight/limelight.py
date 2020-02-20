@@ -53,7 +53,7 @@ class Limelight:
         Returns:
             Any valid targets?
         """
-        return self.__nt.getNumber("tv")
+        return self.__nt.getNumber("tv", 0)
 
     @property
     def horizontal_offset(self) -> float:
@@ -66,7 +66,7 @@ class Limelight:
             The horizontal offest from the crosshair to the target.
             
         """
-        return self.__nt.getNumber("tx")
+        return self.__nt.getNumber("tx", 0)
 
     @property
     def vertical_offset(self) -> float:
@@ -78,7 +78,7 @@ class Limelight:
         Returns:
             The vertical offset from the crosshair to the target
         """
-        return self.__nt.getNumber("ty")
+        return self.__nt.getNumber("ty", 0)
 
     @property
     def target_area(self) -> float:
@@ -88,7 +88,7 @@ class Limelight:
         Returns:
             0% - 100% of image
         """
-        return self.__nt.getNumber("ta")
+        return self.__nt.getNumber("ta", 0)
 
     @property
     def skew(self) -> float:
@@ -98,7 +98,7 @@ class Limelight:
         Returns:
             -90° - 0°
         """
-        return self.__nt.getNumber("ts")
+        return self.__nt.getNumber("ts", 0)
 
     @property
     def latency(self) -> float:
@@ -108,7 +108,7 @@ class Limelight:
         Returns:
             Latency contribution
         """
-        return self.__nt.getNumber("tl")
+        return self.__nt.getNumber("tl", 0)
 
     @property
     def bb_short(self) -> float:
@@ -118,7 +118,7 @@ class Limelight:
         Returns:
             Shortest sidelength
         """
-        return self.__nt.getNumber("tshort")
+        return self.__nt.getNumber("tshort", 0)
 
     @property
     def bb_long(self) -> float:
@@ -128,7 +128,7 @@ class Limelight:
         Returns:
             Longest sidelength
         """
-        return self.__nt.getNumber("tlong")
+        return self.__nt.getNumber("tlong", 0)
 
     @property
     def bb_horizontal(self) -> float:
@@ -138,7 +138,7 @@ class Limelight:
         Returns:
             The horizontal sidelength
         """
-        return self.__nt.getNumber("thor")
+        return self.__nt.getNumber("thor", 0)
 
     @property
     def bb_vertical(self) -> float:
@@ -148,7 +148,7 @@ class Limelight:
         Returns:
             The vertical sidelength
         """
-        return self.__nt.getNumber("tvert")
+        return self.__nt.getNumber("tvert", 0)
 
     @property
     def bounding_box(self) -> Tuple[float, float]:
@@ -159,35 +159,35 @@ class Limelight:
         Results of a 3D solution position, 6 numbers: Translation(x,y,z) Rotation(pitch, yaw, roll)
         Honestly I have no clue what this does yet without some testing.
         """
-        return self.__nt.getNumber("camtran")
+        return self.__nt.getNumber("camtran", 0)
 
     @property
     def crosshair_ax(self):
         """
         Get crosshair A's X position
         """
-        return self.__nt.getNumber("cx0")
+        return self.__nt.getNumber("cx0", 0)
 
     @property
     def crosshair_ay(self):
         """
         Get crosshair A's Y position
         """
-        return self.__nt.getNumber("cy0")
+        return self.__nt.getNumber("cy0", 0)
 
     @property
     def crosshair_bx(self):
         """
         Get crosshair B's X position
         """
-        return self.__nt.getNumber("cx1")
+        return self.__nt.getNumber("cx1", 0)
 
     @property
     def crosshair_by(self):
         """
         Get crosshair B's Y position
         """
-        return self.__nt.getNumber("cy1")
+        return self.__nt.getNumber("cy1", 0)
 
     def camera(self, camMode: CamMode) -> None:
         """
